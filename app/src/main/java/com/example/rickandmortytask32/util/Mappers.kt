@@ -1,12 +1,13 @@
 package com.example.rickandmortytask32.util
 
+import com.example.rickandmortytask32.data.CharacterInfoNw
 import com.example.rickandmortytask32.data.DataRickAndMorty
 
-fun CharacterInfoNw(): DataRickAndMorty {
+fun CharacterInfoNw.toDomain(): DataRickAndMorty {
     return DataRickAndMorty(
-        image = CharacterInfoNw().image,
-        type = CharacterInfoNw().type,
-        gender = CharacterInfoNw().gender
+        image = image,
+        type = type,
+        gender = gender
     )
 }
 
