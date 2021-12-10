@@ -41,7 +41,7 @@ class HolderCharacter(binding: ItemCharacterBinding): RecyclerView.ViewHolder(bi
 
         Glide.with(heroImage.context)
                 //https://rickandmortyapi.com/api/character/avatar/3.jpeg
-            .load("https://rickandmortyapi.com/api/character/avatar/${item.characterData.image}.jpeg")
+            .load("${item.characterData.image}")
             .into(heroImage)
     }
 }

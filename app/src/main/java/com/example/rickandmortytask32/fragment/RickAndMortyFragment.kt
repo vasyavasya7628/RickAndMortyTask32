@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmortytask32.RickAndMortyApi
+import com.example.rickandmortytask32.util.toDomain
 import com.example.rickandmortytask32.RickAndMortySealed
 import com.example.rickandmortytask32.SealedMortyAdapter
 import com.example.rickandmortytask32.data.CharacterInfoNw
@@ -36,6 +38,7 @@ class RickAndMortyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        rickAndMortyViewModel = ViewModelProvider(this).get(RickAndMortyViewModel::class.java)
         initAdapter()
         getDataFromNetwork()
         showToast("Data loaded from internet")
@@ -52,8 +55,8 @@ class RickAndMortyFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     val character: DataRickAndMortyNw = response.body() as DataRickAndMortyNw
-                    val characterDomain: List<DataRickAndMorty> = character.list.map{characterInfo ->
-
+                    val characterDomain: List<DataRickAndMorty> = character.list.map {
+                        it.toDomain()
                     }
                     rickAndMortyViewModel.setCharacters(characterDomain)
                     loadDataToAdapter(characterDomain)
