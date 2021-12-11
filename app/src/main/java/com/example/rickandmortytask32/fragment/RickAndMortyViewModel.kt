@@ -8,6 +8,6 @@ class RickAndMortyViewModel: ViewModel() {
         private set
 
     fun setCharacters(character: List<DataRickAndMorty>){
-        characters = characters as MutableList<DataRickAndMorty>
+        characters = character as MutableList<DataRickAndMorty>
     }
 }

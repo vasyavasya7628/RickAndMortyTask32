@@ -8,14 +8,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rickandmortytask32.R
 import com.example.rickandmortytask32.RickAndMortyApi
-import com.example.rickandmortytask32.util.toDomain
 import com.example.rickandmortytask32.RickAndMortySealed
 import com.example.rickandmortytask32.SealedMortyAdapter
-import com.example.rickandmortytask32.data.CharacterInfoNw
 import com.example.rickandmortytask32.data.DataRickAndMorty
 import com.example.rickandmortytask32.data.DataRickAndMortyNw
 import com.example.rickandmortytask32.databinding.FragmentRickAndMortyBinding
+import com.example.rickandmortytask32.util.toDomain
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,8 +40,13 @@ class RickAndMortyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         rickAndMortyViewModel = ViewModelProvider(this).get(RickAndMortyViewModel::class.java)
         initAdapter()
-        getDataFromNetwork()
-        showToast("Data loaded from internet")
+        if (savedInstanceState == null) {
+            showToast(getString(R.string.loaded_from_net))
+            getDataFromNetwork()
+        } else {
+            showToast(getString(R.string.loaded_from_local_storage))
+            loadDataToAdapter(rickAndMortyViewModel.characters)
+        }
     }
 
 
@@ -62,7 +67,7 @@ class RickAndMortyFragment : Fragment() {
                     loadDataToAdapter(characterDomain)
                     Timber.d(characterDomain.toString())
 
-                }
+                } else Timber.d(response.message())
             }
 
             override fun onFailure(call: Call<DataRickAndMortyNw>, t: Throwable) {
@@ -73,8 +78,8 @@ class RickAndMortyFragment : Fragment() {
 
     fun loadDataToAdapter(characterDomain: List<DataRickAndMorty>) {
         val list = mutableListOf<RickAndMortySealed>()
-        characterDomain.map {characterInfo ->
-        list.add(RickAndMortySealed.CharacterRecyclerRickAndMorty(characterInfo))
+        characterDomain.map { characterInfo ->
+            list.add(RickAndMortySealed.CharacterRecyclerRickAndMorty(characterInfo))
         }
 
         sealedMortyAdapter.submitList(list.toMutableList())
