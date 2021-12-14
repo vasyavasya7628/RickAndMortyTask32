@@ -1,7 +1,7 @@
-package com.example.rickandmortytask32.fragment
+package com.example.rickandmortytask32.presentation
 
 import androidx.lifecycle.ViewModel
-import com.example.rickandmortytask32.data.DataRickAndMorty
+import com.example.rickandmortytask32.domain.DataRickAndMorty
 
 class RickAndMortyViewModel: ViewModel() {
     var characters: MutableList<DataRickAndMorty> = mutableListOf()

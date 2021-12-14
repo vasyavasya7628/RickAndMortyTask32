@@ -1,4 +1,4 @@
-package com.example.rickandmortytask32.fragment
+package com.example.rickandmortytask32.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmortytask32.R
-import com.example.rickandmortytask32.RickAndMortyApi
-import com.example.rickandmortytask32.RickAndMortySealed
-import com.example.rickandmortytask32.SealedMortyAdapter
-import com.example.rickandmortytask32.data.DataRickAndMorty
 import com.example.rickandmortytask32.data.DataRickAndMortyNw
+import com.example.rickandmortytask32.data.RickAndMortyApi
 import com.example.rickandmortytask32.databinding.FragmentRickAndMortyBinding
+import com.example.rickandmortytask32.domain.DataRickAndMorty
 import com.example.rickandmortytask32.util.toDomain
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +23,7 @@ class RickAndMortyFragment : Fragment() {
     private var _binding: FragmentRickAndMortyBinding? = null
     private val binding get() = _binding!!
     private val api: RickAndMortyApi = RickAndMortyApi.create()
-    private val sealedMortyAdapter: SealedMortyAdapter = SealedMortyAdapter()
+    private val characterAdapter: CharacterAdapter = CharacterAdapter()
     private lateinit var rickAndMortyViewModel: RickAndMortyViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,17 +75,16 @@ class RickAndMortyFragment : Fragment() {
     }
 
     fun loadDataToAdapter(characterDomain: List<DataRickAndMorty>) {
-        val list = mutableListOf<RickAndMortySealed>()
+        val list = mutableListOf<CharacterRecyclerRickAndMorty>()
         characterDomain.map { characterInfo ->
-            list.add(RickAndMortySealed.CharacterRecyclerRickAndMorty(characterInfo))
+            list.add(CharacterRecyclerRickAndMorty(characterInfo))
         }
-
-        sealedMortyAdapter.submitList(list.toMutableList())
+        characterAdapter.submitList(list.toMutableList())
     }
 
     private fun initAdapter() {
         binding.recyclerviewRickandmorty.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerviewRickandmorty.adapter = sealedMortyAdapter
+        binding.recyclerviewRickandmorty.adapter = characterAdapter
     }
 
     private fun showToast(message: String) {
