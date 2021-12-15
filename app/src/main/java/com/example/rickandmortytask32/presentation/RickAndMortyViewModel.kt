@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.rickandmortytask32.data.DataRickAndMortyNw
 import com.example.rickandmortytask32.data.RickAndMortyApi
 import com.example.rickandmortytask32.domain.DataRickAndMorty
-import com.example.rickandmortytask32.util.toDomain
+import com.example.rickandmortytask32.data.toDomain
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

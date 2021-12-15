@@ -6,55 +6,50 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.rickandmortytask32.domain.DataRickAndMorty
 import com.example.rickandmortytask32.databinding.ItemCharacterBinding
+import com.example.rickandmortytask32.domain.DataRickAndMorty
 
+class CharacterAdapter : ListAdapter<DataRickAndMorty, HolderCharacter>(diffUtil) {
 
-data class CharacterRecyclerRickAndMorty(val characterData: DataRickAndMorty)
-class CharacterAdapter: ListAdapter<CharacterRecyclerRickAndMorty, RecyclerView.ViewHolder>(
-    diffUtil
-) {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return HolderCharacter(ItemCharacterBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderCharacter {
+        return HolderCharacter(
+            ItemCharacterBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)
-        when(holder){
-            is HolderCharacter -> holder.bind(item as CharacterRecyclerRickAndMorty)
-        }
-
-    }
-
-}
-
-class HolderCharacter(binding: ItemCharacterBinding): RecyclerView.ViewHolder(binding.root){
-
-    private val heroType = binding.heroType
-    private val heroGender = binding.heroGender
-    private val heroImage = binding.heroImage
-
-    fun bind(item: CharacterRecyclerRickAndMorty){
-        heroType.text = item.characterData.type
-        heroGender.text = item.characterData.gender
-        Glide.with(heroImage.context)
-            .load(item.characterData.image)
-            .into(heroImage)
+    override fun onBindViewHolder(holder: HolderCharacter, position: Int) {
+        holder.bind(getItem(position))
     }
 }
 
-private val diffUtil = object : DiffUtil.ItemCallback<CharacterRecyclerRickAndMorty>() {
+class HolderCharacter(private val binding: ItemCharacterBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: DataRickAndMorty) {
+        binding.heroType.text = item.type
+        binding.heroGender.text = item.gender
+        Glide.with(binding.heroImage.context)
+            .load(item.image)
+            .into(binding.heroImage)
+    }
+}
 
-    override fun areItemsTheSame(oldItem: CharacterRecyclerRickAndMorty, newItem: CharacterRecyclerRickAndMorty): Boolean {
-        if (oldItem.characterData.image == newItem.characterData.image) {
-            return oldItem.characterData.image == newItem.characterData.image
-        }
-        return false
+private val diffUtil = object : DiffUtil.ItemCallback<DataRickAndMorty>() {
+
+    override fun areItemsTheSame(
+        oldItem: DataRickAndMorty,
+        newItem: DataRickAndMorty
+    ): Boolean {
+        return oldItem.image == newItem.image
     }
 
-    override fun areContentsTheSame(oldItem: CharacterRecyclerRickAndMorty, newItem: CharacterRecyclerRickAndMorty): Boolean {
+    override fun areContentsTheSame(
+        oldItem: DataRickAndMorty,
+        newItem: DataRickAndMorty
+    ): Boolean {
         return oldItem == newItem
     }
 }

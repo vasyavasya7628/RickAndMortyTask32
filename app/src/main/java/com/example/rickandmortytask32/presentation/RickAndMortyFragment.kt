@@ -28,19 +28,10 @@ class RickAndMortyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         rickAndMortyViewModel.characters.observe(viewLifecycleOwner) {
-            loadDataToAdapter(it)
+            characterAdapter.submitList(it)
         }
 
 
-    }
-
-
-    fun loadDataToAdapter(characterDomain: List<DataRickAndMorty>) {
-        val list = mutableListOf<CharacterRecyclerRickAndMorty>()
-        characterDomain.map { characterInfo ->
-            list.add(CharacterRecyclerRickAndMorty(characterInfo))
-        }
-        characterAdapter.submitList(list.toMutableList())
     }
 
     private fun initAdapter() {
