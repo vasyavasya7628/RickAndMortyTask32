@@ -1,4 +1,4 @@
-package com.example.rickandmortytask32
+package com.example.rickandmortytask32.data
 
 import com.example.rickandmortytask32.data.DataRickAndMortyNw
 import okhttp3.OkHttpClient
@@ -10,7 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import timber.log.Timber
 
-const val BASE_URL = "https://rickandmortyapi.com/api/character/"
+const val BASE_URL = "https://rickandmortyapi.com/api/"
 
 interface RickAndMortyApi {
     @GET("character")
