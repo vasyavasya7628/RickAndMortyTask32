@@ -3,7 +3,7 @@ package com.example.rickandmortytask32.data
 
 import com.google.gson.annotations.SerializedName
 
-data class DataRickAndMortyNw(
+data class CharactersNw(
     @SerializedName("info")
     val info: Info,
     @SerializedName("results")
