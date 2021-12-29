@@ -26,7 +26,9 @@ import com.example.rickandmortytask32.databinding.FragmentRickAndMortyBinding
 class RickAndMortyFragment : Fragment() {
     private var _binding: FragmentRickAndMortyBinding? = null
     private val binding get() = _binding!!
-    private val characterAdapter: CharacterAdapter = CharacterAdapter()
+    private val characterAdapter: CharacterAdapter = CharacterAdapter() {
+        rickAndMortyViewModel.loadNextPage()
+    }
     private val rickAndMortyViewModel: RickAndMortyViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +43,7 @@ class RickAndMortyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         rickAndMortyViewModel.characters.observe(viewLifecycleOwner) {
-            nwcharactersAndPages ->
-                with(characterAdapter) { submitList(nwcharactersAndPages.list as MutableList<CharacterSealed>) }
+                characterAdapter.submitList(it)
         }
 
 

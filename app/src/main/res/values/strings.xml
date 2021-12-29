@@ -7,4 +7,5 @@
     <string name="character_image">изображение героев</string>
     <string name="loaded_from_local_storage">Loaded from the local storage</string>
     <string name="loaded_from_net">Loaded from the internet</string>
+    <string name="load">load</string>
 </resources>

@@ -6,13 +6,18 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 import timber.log.Timber
 
 const val BASE_URL = "https://rickandmortyapi.com/api/"
 
 interface RickAndMortyApi {
     @GET("character")
-    fun getCharacterInfo(): Call<CharactersNw>
+    fun getCharacterInfo(
+        @Query("page")
+        page: Int
+    ): Call<CharactersNw>
+
 
     companion object {
         fun create(): RickAndMortyApi {
