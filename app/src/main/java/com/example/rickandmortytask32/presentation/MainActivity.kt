@@ -1,4 +1,4 @@
-package com.example.rickandmortytask32
+package com.example.rickandmortytask32.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
