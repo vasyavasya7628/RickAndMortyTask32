@@ -27,7 +27,7 @@ class RickAndMortyFragment : Fragment() {
     private var _binding: FragmentRickAndMortyBinding? = null
     private val binding get() = _binding!!
     private val characterAdapter: CharacterAdapter = CharacterAdapter {
-          //  rickAndMortyViewModel.loadNextPage()
+        rickAndMortyViewModel.loadNextPage()
     }
     private val rickAndMortyViewModel: RickAndMortyViewModel by viewModels()
     override fun onCreateView(
@@ -58,6 +58,5 @@ class RickAndMortyFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 
 }
