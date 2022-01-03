@@ -18,7 +18,9 @@ class RickAndMortyViewModel : ViewModel() {
         MutableLiveData<List<CharactersUI>>()
     val characters: LiveData<List<CharactersUI>> get() = _characters
     private var currentPage = 1
-
+    private val MIN_PAGES = 1
+    private val MAX_PAGES = 41
+    private val PAGES_BOUNDS_LIMIT = 42
     init {
         loadCharacters()
     }
@@ -36,22 +38,21 @@ class RickAndMortyViewModel : ViewModel() {
                         CharactersUI.Data(it)
                     }.toMutableList()
                 when {
-                    currentPage == 1 -> {
+                    currentPage == MIN_PAGES -> {
                         charactersUI.add(CharactersUI.NextPage)
                         withContext(Dispatchers.Main) {
                             _characters.value = charactersUI
                         }
                         currentPage++
                     }
-                    currentPage < 41 -> {
+                    currentPage < MAX_PAGES -> {
                         charactersUI.add(CharactersUI.NextPage)
                         withContext(Dispatchers.Main) {
                             _characters.value = charactersUI
                         }
                         currentPage++
-                        Timber.d(currentPage.toString() + "PAGEPAGE")
                     }
-                    currentPage == 42 ->{
+                    currentPage == PAGES_BOUNDS_LIMIT ->{
                         Timber.d("END OF PAGES")
                     }
                 }
