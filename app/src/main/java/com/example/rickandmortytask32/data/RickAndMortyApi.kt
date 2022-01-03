@@ -13,10 +13,10 @@ const val BASE_URL = "https://rickandmortyapi.com/api/"
 
 interface RickAndMortyApi {
     @GET("character")
-    fun getCharacterInfo(
+    suspend fun getCharacterInfo(
         @Query("page")
         page: Int
-    ): Call<CharactersNw>
+    ): CharactersNw
 
 
     companion object {

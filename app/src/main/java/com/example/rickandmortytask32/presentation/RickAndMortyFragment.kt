@@ -26,8 +26,8 @@ import com.example.rickandmortytask32.databinding.FragmentRickAndMortyBinding
 class RickAndMortyFragment : Fragment() {
     private var _binding: FragmentRickAndMortyBinding? = null
     private val binding get() = _binding!!
-    private val characterAdapter: CharacterAdapter = CharacterAdapter() {
-        rickAndMortyViewModel.loadNextPage()
+    private val characterAdapter: CharacterAdapter = CharacterAdapter {
+          //  rickAndMortyViewModel.loadNextPage()
     }
     private val rickAndMortyViewModel: RickAndMortyViewModel by viewModels()
     override fun onCreateView(
