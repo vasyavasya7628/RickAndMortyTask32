@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickandmortytask32.App
 import com.example.rickandmortytask32.data.RickAndMortyApi
 import com.example.rickandmortytask32.data.toDomain
 import com.example.rickandmortytask32.presentation.model.CharactersUI
@@ -32,6 +33,7 @@ class RickAndMortyViewModel : ViewModel() {
     private fun loadCharacters() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                App()
                 val response = api.getCharacterInfo(currentPage).toDomain()
                 val charactersUI: MutableList<CharactersUI> =
                     response.list.map {
